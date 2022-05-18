@@ -1,49 +1,67 @@
 import React, { useState, useEffect } from 'react';
-import Article, { ArticleModel as IArticle } from '../components/Article';
+import Add from '../components/Add';
+import Article, { IArticle } from '../components/Article';
 import Footer from '../components/Footer';
+import Modal from '../components/Modal';
 
 function Home() {
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [Loading, setLoading] = useState(true);
+  const [isModalOpen, visibleModal] = useState(false);
   const [articles, setArticles] = useState([] as IArticle[]);
-  const [startDisplayIndex, setStartDisplayIndex] = useState(0);
-  const numberOfArticlesToDisplay = 3;
+  const [startArticle, setStartArticle] = useState(0);
+  const [tempArticle, articleForModal] = useState(
+    {
+      id: 0,
+      title: '',
+      tag: '',
+      author: '',
+      date: '',
+      imgUrl: '',
+      content: '',
+    } as IArticle);
 
-  useEffect(() => {
-    fetch("http://localhost:4000/articles")
-      .then(res => res.json())
-      .then(
-        (result: IArticle[]) => {
-          setIsLoaded(true);
-          setArticles(result);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      )
-  }, [])
+  const getArticlesFromServer = async () => {
+    const resp = await fetch("http://localhost:4000/articles");
+      
+    const articles = await resp.json();
+    setArticles(articles);
+    setLoading(true);
+  }
 
-  if (error) {
-    return <div>Error!</div>;
-  } else if (!isLoaded) {
-    return <div>Loading...</div>;
-  } else {
+  useEffect(() => {getArticlesFromServer()}, []);
+
     return (
       <main>
+        <Add visibleModal={visibleModal} articleToAdd={articleForModal} />
         {articles
-          .filter((article, index) => (index >= startDisplayIndex) && (index < startDisplayIndex + numberOfArticlesToDisplay))
-          .map(article => (
-            <Article key={article.id} article={article} />
-          ))}
+          .filter((article, index) => (index >= startArticle) && (index < startArticle + 2))
+          .map((article, index, articles) => {
+            return (
+              <Article
+                key={article.id}
+                article={article}
+                visibleModal={visibleModal}
+                articleToPreview={articleForModal}
+                getArticlesFromServer={getArticlesFromServer}
+              />
+            )
+          }
+          )}
         <Footer
-          numberOfArticlesToDisplay={numberOfArticlesToDisplay}
-          startDisplayIndex={startDisplayIndex}
+          nrOfArticles={2}
+          startIndexArticle={startArticle}
           articlesLength={articles.length}
-          setStartDisplayIndex={setStartDisplayIndex} />
+          setArticleStart={setStartArticle} />
+        <Modal
+          isModalOpen={isModalOpen}
+          tempArticle={tempArticle}
+          articleForModal={articleForModal}
+          visibleModal={visibleModal}
+          getArticlesFromServer={getArticlesFromServer}
+        />
       </main>
     );
-  }
 }
 
 export default Home;
+

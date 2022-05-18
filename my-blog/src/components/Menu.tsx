@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Menu() {
+function Details() {
     return (
         <nav className="nav">
             <ul className="nav__container">
@@ -21,6 +21,6 @@ function Menu() {
     );
 }
 
-export default Menu;
+export default Details;
 
 

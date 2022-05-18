@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  HashRouter,
   BrowserRouter,
   Routes,
   Route,
@@ -13,12 +14,12 @@ function App() {
   return (
     <div className="App">
       <Menu/>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/home" element={<Home/>} />
-          <Route path="/details" element={<Details/>} />
+          <Route path="/details/:article" element={<Details/>} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }

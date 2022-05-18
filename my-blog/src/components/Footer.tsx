@@ -1,23 +1,26 @@
 import React, { Dispatch, SetStateAction } from 'react';
 
 interface FooterProps {
-    numberOfArticlesToDisplay: number;
-    startDisplayIndex: number;
+    nrOfArticles: number;
+    startIndexArticle: number;
     articlesLength: number;
-    setStartDisplayIndex: Dispatch<SetStateAction<number>>;
+    setArticleStart: Dispatch<SetStateAction<number>>;
 }
 
 function Footer(props: FooterProps) {
-    const { numberOfArticlesToDisplay, startDisplayIndex, articlesLength,setStartDisplayIndex } = props
+    const { nrOfArticles: numberOfArticlesToDisplay,
+            startIndexArticle: startDisplayIndex, 
+            articlesLength,
+            setArticleStart: setArticleStart } = props
     return (
         <footer className="footer">
             {startDisplayIndex > 0 &&
                 <button
-                    onClick={(e) => setStartDisplayIndex(startDisplayIndex - numberOfArticlesToDisplay)}
+                    onClick={(e) => setArticleStart(startDisplayIndex - numberOfArticlesToDisplay)}
                     className="footer__link">previous</button>}
             {startDisplayIndex + numberOfArticlesToDisplay < articlesLength && 
                 <button
-                    onClick={(e) => setStartDisplayIndex(startDisplayIndex + numberOfArticlesToDisplay)}
+                    onClick={(e) => setArticleStart(startDisplayIndex + numberOfArticlesToDisplay)}
                     className="footer__link footer__link--next">next</button>}
         </footer>
     );

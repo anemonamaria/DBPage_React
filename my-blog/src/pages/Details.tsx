@@ -1,9 +1,16 @@
-import React from 'react';
+// import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Add from '../components/Add';
+import Article, { IArticle } from '../components/Article';
+import Footer from '../components/Footer';
+import Modal from '../components/Modal';
+
 
 function Details() {
   return (
     <div>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores dolorum quis temporibus accusamus maiores rem sequi. Illo mollitia rem reiciendis deleniti dignissimos consectetur architecto eligendi? Expedita quas cupiditate et minus aspernatur iure dolorum molestiae ipsum nihil quod, magnam atque adipisci explicabo numquam consequatur fuga magni omnis at architecto sunt minima?
+      Details
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo delectus quas commodi iure, illo vitae at, distinctio sequi, placeat sunt praesentium labore possimus deleniti pariatur voluptatibus totam quod reiciendis error!
     </div>
   );
 }

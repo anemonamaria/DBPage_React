@@ -1,6 +1,5 @@
 {
   "homepage": "https://anemonamaria.github.io/DBPage_React/",
-  "name": "my-blog",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
